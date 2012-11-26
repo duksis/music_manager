@@ -8,13 +8,20 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
+  @@salt = 'salty string'
+
   def password=(pass)
     @password=pass
-    self.hashed_password = User.encrypt(@password, 'salty string')
+    self.hashed_password = User.encrypt(@password, @@salt)
   end
 
   def self.encrypt(pass, salt)
     Digest::SHA1.hexdigest(pass+salt)
+  end
+
+  def self.authenticate(login, password)
+    return unless (user = find_by_name(login))
+    user if User.encrypt(password, @@salt) == user.hashed_password
   end
 
 end

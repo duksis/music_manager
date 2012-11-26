@@ -24,19 +24,37 @@ feature "Users" do
     page.should have_content("Account successfully created!")
   end
 
-  # scenario "Signing in" do
-  #   # Given I have a user account
-  #   # And I'm on the application home page
-  #   # When I fill in my credentials
-  #   # And I press "Login"
-  #   # Then I should be loggend in as me
-  # end
+  scenario "Signing in" do
+    # Given I have a user account
+    FactoryGirl.create(:user)
+    me = FactoryGirl.attributes_for(:user)
 
-  # scenario "Logging out" do
-  #   # Given I'm logged in
-  #   # When I press "Log out"
-  #   # Then I should be logged out
-  # end
+    # And I'm on the application home page
+    visit homepage
+
+    # When I fill in my credentials
+    fill_in 'name', :with => me[:name]
+    fill_in 'password', :with => me[:password]
+
+    # And I press "Sign in"
+    click_button 'Sign in'
+
+    # Then I should be loggend in as me
+    page.should have_content("Welcome #{me[:name]}!")
+  end
+
+  scenario "Sigging out" do
+    pending
+    # Given I'm logged in
+    me = FactoryGirl.create(:user)
+    log_in me
+
+    # When I press "Sign out"
+    click_link "Sign out"
+
+    # Then I should be logged out
+    page.should have_content("successfully signed out!")
+  end
 
   # scenario "Searching for albums" do
     # ...

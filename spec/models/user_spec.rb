@@ -15,6 +15,25 @@ describe User do
     end
   end
 
+  describe '.authenticate' do
+    before do
+      FactoryGirl.create(:user)
+    end
+    let(:user){FactoryGirl.attributes_for(:user)}
+
+    it 'with valid credentials should return user' do
+      User.authenticate(user[:name], user[:password]).should be_a(User)
+    end
+
+    it 'with wrong password it should return nil' do
+      User.authenticate(user[:name], user[:password].reverse).should be_nil
+    end
+
+    it 'with wrong credentials should return nil' do
+      User.authenticate('Johnny','secret!').should be_nil
+    end
+  end
+
   describe 'validations' do
     valid_attributes = FactoryGirl.attributes_for(:user)
 

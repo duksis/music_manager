@@ -3,6 +3,9 @@ MusicManager::Application.routes.draw do
   # first created -> highest priority.
   resources :users
 
+  get  'login' => 'sessions#new',     :as => 'login'
+  post 'login' => 'sessions#create'
+
   root :to => 'sessions#new'
 
   # Sample of regular route:

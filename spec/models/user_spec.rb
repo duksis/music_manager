@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe User do
   describe '.encrypt' do
-    password = 'welcome1'
-    salt = 'salty string'
-    hashed_password = '65e82b6f919141bdcc8a45180660bff9f55c6e13'
+    let(:password) {'welcome1'}
+    let(:salt) {'salty string'}
+    let(:hashed_password) {'65e82b6f919141bdcc8a45180660bff9f55c6e13'}
 
     it 'should return hashed password' do
       User.encrypt(password,salt).should eq(hashed_password)

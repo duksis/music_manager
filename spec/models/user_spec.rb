@@ -35,7 +35,7 @@ describe User do
   end
 
   describe 'validations' do
-    valid_attributes = FactoryGirl.attributes_for(:user)
+    let(:valid_attributes) {FactoryGirl.attributes_for(:user)}
 
     context 'with valid attributes' do
       it 'should create user' do
@@ -43,27 +43,45 @@ describe User do
       end
     end
 
-    context "should fail when" do
-      it 'missing name' do
+    # it { should validate_presence_of :name }
+    # it { should validate_presence_of :password }
+    # it { should validate_presence_of :password_confirmation }
+    # it { should validate_confirmation_of :password }
+    context "should validate" do
+      it 'presence of name' do
         user = User.create(valid_attributes.reject{|key| key == :name })
         user.errors.messages.keys.should include(:name)
       end
 
-      it 'missing password' do
+      it 'presence of password' do
         user = User.create(valid_attributes.reject{|key| key == :password })
         user.errors.messages.keys.should include(:password)
       end
 
-      it 'missing password_confirmation' do
+      it 'presence of password_confirmation' do
         user = User.create(valid_attributes.reject{|key| key == :password_confirmation })
         user.errors.messages.keys.should include(:password_confirmation)
       end
 
-      it 'missmaching password_confirmation' do
+      it 'confirmation of password' do
         invalid_attributes = valid_attributes.dup
         invalid_attributes[:password_confirmation] = valid_attributes[:password].reverse
 
         user = User.create(invalid_attributes)
+        user.errors.messages.keys.should include(:password)
+      end
+
+      it 'uniqueness of name' do
+        User.create(valid_attributes)
+        user = User.create(valid_attributes)
+        user.errors.messages.keys.should include(:name)
+      end
+
+      it 'length of password' do
+        short_password = valid_attributes
+        short_password[:password_confirmation]='?'
+        short_password[:password]='?'
+        user = User.create(short_password)
         user.errors.messages.keys.should include(:password)
       end
     end

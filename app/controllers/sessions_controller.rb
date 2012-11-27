@@ -10,4 +10,9 @@ class SessionsController < ApplicationController
       render action: 'new', warning: "Login unsuccessful"
     end
   end
+
+  def destroy
+    reset_session
+    redirect_to login_path, notice: 'You have been successfully signed out!'
+  end
 end

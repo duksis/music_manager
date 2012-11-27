@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/acceptance_helper'
 
 feature "Users" do
   # As a person I can create a user account, sign in and out
-  # and as a user to search your own albums.
 
   scenario "Creating user account" do
     # Given I'm on the application homepage
@@ -30,7 +29,7 @@ feature "Users" do
     me = FactoryGirl.attributes_for(:user)
 
     # And I'm on the application home page
-    visit homepage
+    visit login_url
 
     # When I fill in my credentials
     fill_in 'name', :with => me[:name]
@@ -44,9 +43,8 @@ feature "Users" do
   end
 
   scenario "Sigging out" do
-    pending
     # Given I'm logged in
-    me = FactoryGirl.create(:user)
+    me = FactoryGirl.attributes_for(:user)
     log_in me
 
     # When I press "Sign out"
@@ -56,8 +54,4 @@ feature "Users" do
     page.should have_content("successfully signed out!")
   end
 
-  # scenario "Searching for albums" do
-    # ...
-
-  # end
 end

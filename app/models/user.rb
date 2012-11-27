@@ -2,6 +2,8 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   validates_presence_of :name, :password, :password_confirmation
+  validates_uniqueness_of :name
+  validates_length_of :password, :within => 5..40
   validates_confirmation_of :password
 
   attr_accessible :name, :password, :password_confirmation

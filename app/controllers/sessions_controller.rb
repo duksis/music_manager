@@ -4,15 +4,15 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if session[:user] = User.authenticate(params[:name], params[:password])
-      redirect_to root_url, notice: "Welcome #{session[:user].name}!"
+    if session[:user_id] = User.authenticate(params[:name], params[:password]).try(:id)
+      redirect_to stored_path, notice: "Welcome #{current_user.name}!"
     else
-      render action: 'new', warning: "Login unsuccessful"
+      render action: 'new', warning: "Log in unsuccessful"
     end
   end
 
   def destroy
     reset_session
-    redirect_to login_path, notice: 'You have been successfully signed out!'
+    redirect_to login_path, notice: 'You have been successfully logged out!'
   end
 end

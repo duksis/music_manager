@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
+  has_many :albums
+
   @@salt = 'salty string'
 
   def password=(pass)

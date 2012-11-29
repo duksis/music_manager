@@ -2,12 +2,13 @@ MusicManager::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
   resources :users
+  resources :albums
 
   get  'login' => 'sessions#new',     :as => 'login'
   post 'login' => 'sessions#create'
-  get 'logout'=> 'sessions#destroy', :as => 'logout'
+  get  'logout'=> 'sessions#destroy', :as => 'logout'
 
-  root :to => 'sessions#new'
+  root :to => 'albums#index'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

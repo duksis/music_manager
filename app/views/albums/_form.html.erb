@@ -1,0 +1,50 @@
+<%= form_for @album, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :artist, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :artist, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :genre, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :genre, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :year, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :number_of_tracks, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :number_of_tracks, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :number_of_discs, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :number_of_discs, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Save', :class => 'btn btn-primary' %>
+    <%= link_to 'Cancel', albums_path, :class => 'btn' %>
+  </div>
+
+<% end %>

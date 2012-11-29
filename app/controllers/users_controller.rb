@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      redirect_to root_url, notice: 'Account successfully created!'
+      redirect_to login_path, notice: 'Account successfully created!'
     else
       render action: "new"
     end

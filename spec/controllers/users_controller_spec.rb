@@ -5,7 +5,7 @@ describe UsersController  do
   describe "GET new" do
     it "assigns a new user as @user" do
       get :new
-      assigns(:user).should be_a_new(User)
+      expect(assigns(:user)).to be_a_new(User)
     end
   end
 
@@ -15,32 +15,32 @@ describe UsersController  do
 
       it "creates a new User" do
         expect {
-          post :create, {:user => valid_attributes}
+          post :create, :user => valid_attributes
         }.to change(User, :count).by(1)
       end
 
       it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes}
-        assigns(:user).should be_a(User)
+        post :create, :user => valid_attributes
+        expect(assigns(:user)).to be_a(User)
       end
 
-      it "redirects to the homepage" do
-        post :create, {:user => valid_attributes}
-        response.should redirect_to(root_url)
+      it "redirects to the login page" do
+        post :create, :user => valid_attributes
+        expect(response).to redirect_to(login_path)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved user as @user" do
         User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => {}}
-        assigns(:user).should be_a_new(User)
+        post :create
+        expect(assigns(:user)).to be_a_new(User)
       end
 
       it "re-renders the 'new' template" do
         User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => {}}
-        response.should render_template("new")
+        post :create
+        expect(response).to render_template("new")
       end
     end
   end

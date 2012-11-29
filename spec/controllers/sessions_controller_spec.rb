@@ -10,14 +10,14 @@ describe SessionsController do
         user = FactoryGirl.create(:user)
 
         post :create, valid_attributes
-        response.should redirect_to(root_url)
+        expect(response).to redirect_to(root_url)
       end
     end
 
     describe "with invalid params" do
       it "re-renders the 'new' template" do
         post :create
-        response.should render_template("new")
+        expect(response).to render_template("new")
       end
     end
   end

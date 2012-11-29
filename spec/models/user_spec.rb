@@ -7,11 +7,11 @@ describe User do
     let(:hashed_password) {'65e82b6f919141bdcc8a45180660bff9f55c6e13'}
 
     it 'should return hashed password' do
-      User.encrypt(password,salt).should eq(hashed_password)
+      expect( User.encrypt(password,salt) ).to eq(hashed_password)
     end
 
     it 'should raise error if wrong params' do
-      expect { User.encrypt(password) }.to raise_error
+      expect{ User.encrypt(password) }.to raise_error
     end
   end
 
@@ -22,15 +22,15 @@ describe User do
     let(:user){FactoryGirl.attributes_for(:user)}
 
     it 'with valid credentials should return user' do
-      User.authenticate(user[:name], user[:password]).should be_a(User)
+      expect( User.authenticate(user[:name], user[:password]) ).to be_a(User)
     end
 
     it 'with wrong password it should return nil' do
-      User.authenticate(user[:name], user[:password].reverse).should be_nil
+      expect( User.authenticate(user[:name], user[:password].reverse) ).to be_nil
     end
 
     it 'with wrong credentials should return nil' do
-      User.authenticate('Johnny','secret!').should be_nil
+      expect( User.authenticate('Johnny','secret!') ).to be_nil
     end
   end
 
@@ -39,7 +39,7 @@ describe User do
 
     context 'with valid attributes' do
       it 'should create user' do
-        expect { User.create(valid_attributes) }.to change(User,:count).by(1)
+        expect{ User.create(valid_attributes) }.to change(User,:count).by(1)
       end
     end
 
@@ -50,17 +50,17 @@ describe User do
     context "should validate" do
       it 'presence of name' do
         user = User.create(valid_attributes.reject{|key| key == :name })
-        user.errors.messages.keys.should include(:name)
+        expect( user.errors.messages.keys ).to include(:name)
       end
 
       it 'presence of password' do
         user = User.create(valid_attributes.reject{|key| key == :password })
-        user.errors.messages.keys.should include(:password)
+        expect( user.errors.messages.keys ).to include(:password)
       end
 
       it 'presence of password_confirmation' do
         user = User.create(valid_attributes.reject{|key| key == :password_confirmation })
-        user.errors.messages.keys.should include(:password_confirmation)
+        expect( user.errors.messages.keys ).to include(:password_confirmation)
       end
 
       it 'confirmation of password' do
@@ -68,13 +68,13 @@ describe User do
         invalid_attributes[:password_confirmation] = valid_attributes[:password].reverse
 
         user = User.create(invalid_attributes)
-        user.errors.messages.keys.should include(:password)
+        expect( user.errors.messages.keys ).to include(:password)
       end
 
       it 'uniqueness of name' do
         User.create(valid_attributes)
         user = User.create(valid_attributes)
-        user.errors.messages.keys.should include(:name)
+        expect( user.errors.messages.keys ).to include(:name)
       end
 
       it 'length of password' do
@@ -82,7 +82,7 @@ describe User do
         short_password[:password_confirmation]='?'
         short_password[:password]='?'
         user = User.create(short_password)
-        user.errors.messages.keys.should include(:password)
+        expect( user.errors.messages.keys ).to include(:password)
       end
     end
 

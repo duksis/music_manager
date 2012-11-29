@@ -20,7 +20,7 @@ feature "Users" do
     click_button "Create User"
 
     # Then I should see that my account has been created
-    page.should have_content("Account successfully created!")
+    expect( page ).to have_content("Account successfully created!")
   end
 
   scenario "Logging in" do
@@ -39,7 +39,7 @@ feature "Users" do
     click_button 'Log in'
 
     # Then I should be loggend in as me
-    page.should have_content("Welcome #{me[:name]}!")
+    expect( page ).to have_content("Welcome #{me[:name]}!")
   end
 
   scenario "Logging out" do
@@ -51,7 +51,7 @@ feature "Users" do
     click_link "Log out"
 
     # Then I should be logged out
-    page.should have_content("successfully logged out!")
+    expect( page ).to have_content("successfully logged out!")
   end
 
 end

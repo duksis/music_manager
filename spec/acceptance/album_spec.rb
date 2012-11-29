@@ -23,7 +23,7 @@ feature "Albums" do
     click_button 'Save'
 
     # Then I should see that my album has been added
-    page.should have_content(album_details.fetch(:title))
+    expect( page ).to have_content(album_details.fetch(:title))
   end
 
   scenario "Browsing albums" do

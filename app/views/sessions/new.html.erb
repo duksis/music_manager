@@ -13,8 +13,8 @@
   </div>
   <div class="control-group">
     <div class="controls">
-      <%= submit_tag 'Sign in', :class => 'btn btn-primary' %>
-      <%= link_to 'Sign up', url_for(:action => 'new', :controller => 'users'), :class => 'btn' %>
+      <%= submit_tag 'Log in', :class => 'btn btn-primary' %>
+      <%= link_to 'Sign up', new_user_path, :class => 'btn' %>
     </div>
   </div>
 <% end %>

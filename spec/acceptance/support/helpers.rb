@@ -4,7 +4,7 @@ module HelperMethods
     visit login_url
     fill_in 'name', :with => user_details[:name]
     fill_in 'password', :with => user_details[:password]
-    click_button 'Sign in'
+    click_button 'Log in'
   end
 end
 

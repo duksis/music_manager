@@ -43,25 +43,38 @@ feature "Albums" do
 
   end
 
-# Scenario: Viewing album
-#   Given I'm on my homepage
-#   And I have music albums
-#   When I press on a album
-#   Then I should see its details
+  scenario 'Viewing album' do
+    # Given I have music albums
+    user = log_in
+    album_details = FactoryGirl.attributes_for(:album)
+    album = user.albums.create(album_details)
 
-# Scenario: Updating album
-#   Given I'm on the albums details page
-#   When I press "Edit"
-#   Then I should be able to edit albums details
+    # And I'm on my albums page
+    visit albums_path
 
-# Scenario: Removing album
-#   Given I'm on the albums details page
-#   When I press "Remove"
-#   Then I should see that my album has been removed
+    # When I press on a album
+    click_link album.title
 
-# scenario "Searching for albums" do
-  # ...
+    # Then I should see its details
+    album_details.keys.each do |attribute|
+      expect( page ).to have_content(
+        Album.human_attribute_name(attribute)
+      )
+      expect( page ).to have_content(album[attribute])
+    end
+  end
 
-# end
+  scenario 'Updating album'
+    # Given I'm on the albums details page
+    # When I press "Edit"
+    # Then I should be able to edit albums details
+
+  scenario 'Removing album'
+    # Given I'm on the albums details page
+    # When I press "Remove"
+    # Then I should see that my album has been removed
+
+  scenario 'Searching for albums'
+    # ...
 
 end

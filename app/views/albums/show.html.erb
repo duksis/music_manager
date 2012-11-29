@@ -1,0 +1,24 @@
+<%- model_class = Album -%>
+<div class="page-header">
+  <h1><%= model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @album.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:artist) %>:</strong></dt>
+  <dd><%= @album.artist %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:genre) %>:</strong></dt>
+  <dd><%= @album.genre %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+  <dd><%= @album.year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:number_of_tracks) %>:</strong></dt>
+  <dd><%= @album.number_of_tracks %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:number_of_discs) %>:</strong></dt>
+  <dd><%= @album.number_of_discs %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to 'Back', albums_path, :class => 'btn'  %>
+</div>
+

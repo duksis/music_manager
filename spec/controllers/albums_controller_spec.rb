@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe AlbumsController do
-  before do
+  let(:log_in) do
     user = stub_model(User)
-    controller.session[:user_id] = user.id
+    session[:user_id] = user.id
     User.stub(:find).and_return(user)
   end
+
+  before { log_in }
 
   describe "GET new" do
     it "assigns a new album as @album" do
@@ -23,7 +25,19 @@ describe AlbumsController do
     end
   end
 
+  describe "GET show" do
+    it "assign a album as @album" do
+      album = stub_model(Album)
+      Album.should_receive(:find).with(album.id.to_s).and_return(album)
+
+      get :show, :id => album.id
+      expect(assigns(:album)).to be_a(Album)
+    end
+  end
+
   describe "POST create" do
+
+
     describe "with valid params" do
       let(:valid_attributes) {FactoryGirl.attributes_for(:album)}
 

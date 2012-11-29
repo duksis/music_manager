@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   def login_required
     return if session[:user_id]
     flash[:warning]='Please log in to continue'
-    session[:return_to]=request['REQUEST_URI']
+    session[:return_to]=request.fullpath
     redirect_to login_path
   end
 
@@ -15,4 +15,5 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id])
   end
+
 end

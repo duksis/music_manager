@@ -8,19 +8,16 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:title) %></th>
-      <th>Actions</th>
+      <th><%= model_class.human_attribute_name(:artist) %></th>
+      <th><%= model_class.human_attribute_name(:genre) %></th>
     </tr>
   </thead>
   <tbody>
     <% @albums.each do |album| %>
       <tr>
         <td><%= link_to album.title, album_path(album) %></td>
-        <td>
-          <%= link_to 'Edit', edit_album_path(album), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', album_path(album), :method => :delete,
-            :data => { :confirm => 'Are you sure?' },
-            :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <td><%= album.artist %></td>
+        <td><%= album.genre %></td>
       </tr>
     <% end %>
   </tbody>

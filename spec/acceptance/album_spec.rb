@@ -27,15 +27,20 @@ feature "Albums" do
   end
 
   scenario "Browsing albums" do
-    pending
-    #   Given I have music albums
-    me = FactoryGirl.create(:user) do |user|
-      user.albums.create(attributes_for(:album))
+    # Given I have music albums
+    user = log_in
+    user.albums.create(FactoryGirl.attributes_for(:album))
+
+    # When I go to the albums page
+    visit albums_path
+
+    # Then I should see a list of albums
+    user.albums.each do |album|
+      [:title,:artist,:genre].each do |attribute|
+        expect( page ).to have_content(album[attribute])
+      end
     end
 
-    #   When I go to the homepage
-
-    #   Then I should see a list of albums
   end
 
 # Scenario: Viewing album

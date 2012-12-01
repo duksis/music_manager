@@ -3,11 +3,11 @@ require 'spec_helper'
 describe SessionsController do
   describe "POST create" do
     let(:valid_attributes) do
-      FactoryGirl.attributes_for(:user).select{|key| [:password, :name].include? key }
+      attributes_for(:user).select{|key| [:password, :name].include? key }
     end
     describe "with valid params" do
       it "redirects to the homepage" do
-        user = FactoryGirl.create(:user)
+        user = create(:user)
 
         post :create, valid_attributes
         expect(response).to redirect_to(root_url)

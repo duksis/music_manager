@@ -7,8 +7,8 @@ feature "Albums" do
 
   scenario "Adding album" do
     # Given I'm on my homepage
-    me = FactoryGirl.attributes_for(:user)
-    album_details = FactoryGirl.attributes_for(:album)
+    me = attributes_for(:user)
+    album_details = attributes_for(:album)
     log_in me
     visit homepage
 
@@ -30,7 +30,7 @@ feature "Albums" do
   scenario "Browsing albums" do
     # Given I have music albums
     user = log_in
-    user.albums.create(FactoryGirl.attributes_for(:album))
+    user.albums.create(attributes_for(:album))
 
     # When I go to the albums page
     visit albums_path
@@ -47,7 +47,7 @@ feature "Albums" do
   scenario 'Viewing album' do
     # Given I have music albums
     user = log_in
-    album_details = FactoryGirl.attributes_for(:album)
+    album_details = attributes_for(:album)
     album = user.albums.create(album_details)
 
     # And I'm on my albums page
@@ -68,7 +68,7 @@ feature "Albums" do
   scenario 'Updating album' do
     # Given I'm on the albums details page
     user = log_in
-    album_details = FactoryGirl.attributes_for(:album)
+    album_details = attributes_for(:album)
     album = user.albums.create(album_details)
 
     visit album_path(album)
@@ -88,7 +88,7 @@ feature "Albums" do
   scenario 'Removing album' do
     # Given I'm on the albums details page
     user = log_in
-    album_details = FactoryGirl.attributes_for(:album)
+    album_details = attributes_for(:album)
     album = user.albums.create(album_details)
 
     visit album_path(album)
@@ -106,8 +106,8 @@ feature "Albums" do
     user = log_in
 
     # And I have two albums 'Rocket man' and 'Inni'
-    user.albums.create(FactoryGirl.attributes_for(:album, :title => 'Rocket man', :artist =>'Elton John'))
-    user.albums.create(FactoryGirl.attributes_for(:album, :title => 'Inni', :artist => 'Sigur Rós'))
+    user.albums.create(attributes_for(:album, :title => 'Rocket man', :artist =>'Elton John'))
+    user.albums.create(attributes_for(:album, :title => 'Inni', :artist => 'Sigur Rós'))
 
     # When I fill in the search field with 'Inni'
     fill_in 'Search', :with => 'Inni'

@@ -16,10 +16,9 @@ describe User do
   end
 
   describe '.authenticate' do
-    before do
-      FactoryGirl.create(:user)
-    end
-    let(:user){FactoryGirl.attributes_for(:user)}
+    before {create(:user)}
+
+    let(:user){attributes_for(:user)}
 
     it 'with valid credentials should return user' do
       expect( User.authenticate(user[:name], user[:password]) ).to be_a(User)
@@ -35,7 +34,7 @@ describe User do
   end
 
   describe 'validations' do
-    let(:valid_attributes) {FactoryGirl.attributes_for(:user)}
+    let(:valid_attributes) {attributes_for(:user)}
 
     context 'with valid attributes' do
       it 'should create user' do

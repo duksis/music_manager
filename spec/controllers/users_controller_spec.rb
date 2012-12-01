@@ -11,7 +11,7 @@ describe UsersController  do
 
   describe "POST create" do
     describe "with valid params" do
-      let(:valid_attributes) {FactoryGirl.attributes_for(:user)}
+      let(:valid_attributes) {attributes_for(:user)}
 
       it "creates a new User" do
         expect {

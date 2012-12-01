@@ -11,7 +11,7 @@ feature "Users" do
     click_link "Sign up"
 
     # And I fill in my details
-    my_details = FactoryGirl.attributes_for(:user)
+    my_details = attributes_for(:user)
     my_details.each do |attribute, content|
       fill_in "user_#{attribute}", :with => content
     end
@@ -25,8 +25,8 @@ feature "Users" do
 
   scenario "Logging in" do
     # Given I have a user account
-    FactoryGirl.create(:user)
-    me = FactoryGirl.attributes_for(:user)
+    create(:user)
+    me = attributes_for(:user)
 
     # And I'm on the application home page
     visit login_url
@@ -44,7 +44,7 @@ feature "Users" do
 
   scenario "Logging out" do
     # Given I'm logged in
-    me = FactoryGirl.attributes_for(:user)
+    me = attributes_for(:user)
     log_in me
 
     # When I press "Log out"

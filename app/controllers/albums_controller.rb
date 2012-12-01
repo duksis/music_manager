@@ -36,6 +36,15 @@ class AlbumsController < ApplicationController
     end
   end
 
+  def destroy
+    @album = user_albums.find( params[:id] )
+    if @album.destroy
+      redirect_to albums_path, notice: 'Album removed!'
+    else
+      render 'show'
+    end
+  end
+
   private
     def user_albums
       current_user.albums

@@ -79,12 +79,25 @@ feature "Albums" do
     fill_in "Title", :with => "Another title"
     click_button 'Save'
 
-  scenario 'Removing album'
-    # Given I'm on the albums details page
-    # When I press "Remove"
-    # Then I should see that my album has been removed
+    expect( page ).to have_content('Album saved!')
+    expect( page ).to have_content('Another title')
 
-  scenario 'Searching for albums'
-    # ...
+  end
+
+  scenario 'Removing album' do
+    # Given I'm on the albums details page
+    user = log_in
+    album_details = FactoryGirl.attributes_for(:album)
+    album = user.albums.create(album_details)
+
+    visit album_path(album)
+
+    # When I press "Remove"
+    click_link 'Remove'
+
+    # Then I should see that my album has been removed
+    expect( page ).to have_content('Album removed!')
+
+  end
 
 end

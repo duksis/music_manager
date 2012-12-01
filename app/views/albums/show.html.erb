@@ -21,5 +21,9 @@
 <div class="form-actions">
   <%= link_to 'Back', albums_path, :class => 'btn'  %>
   <%= link_to 'Edit', edit_album_path(@album), :class => 'btn'  %>
+  <%= link_to('Remove', album_path(@album),
+                        :method => :delete,
+                        :data => { :confirm => 'Are you sure?' },
+                        :class => 'btn') %>
 </div>
 

@@ -65,7 +65,18 @@ describe AlbumsController do
       end
     end
 
+    describe "DELETE destroy" do
+      before { Album.any_instance.should_receive(:destroy).and_return(true) }
 
+      it "destroys the requested album" do
+        delete :destroy, :id => album.to_param
+      end
+
+      it "redirects to the users list" do
+        delete :destroy, :id => album.to_param
+        response.should redirect_to(albums_url)
+      end
+    end
 
   end
 

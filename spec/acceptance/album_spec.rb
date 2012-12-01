@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/acceptance_helper'
 
 feature "Albums" do
@@ -97,6 +98,30 @@ feature "Albums" do
 
     # Then I should see that my album has been removed
     expect( page ).to have_content('Album removed!')
+
+  end
+
+  scenario 'Searching for albums' do
+    # Given I'm logged in
+    user = log_in
+
+    # And I have two albums 'Rocket man' and 'Inni'
+    user.albums.create(FactoryGirl.attributes_for(:album, :title => 'Rocket man', :artist =>'Elton John'))
+    user.albums.create(FactoryGirl.attributes_for(:album, :title => 'Inni', :artist => 'Sigur Rós'))
+
+    # When I fill in the search field with 'Inni'
+    fill_in 'Search', :with => 'Inni'
+
+    # And press 'Search'
+    click_button 'Search'
+
+    # I should see 'Inni'
+    expect( page ).to have_content('Sigur Rós')
+    expect( page ).to have_content('Inni')
+
+    # And sholdn't see 'Rocket man'
+    expect( page ).not_to have_content('Elthon John')
+    expect( page ).not_to have_content('Rocket man')
 
   end
 

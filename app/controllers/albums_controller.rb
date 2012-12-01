@@ -45,6 +45,11 @@ class AlbumsController < ApplicationController
     end
   end
 
+  def search
+    @albums = Album.search(params[:q], current_user)
+    render 'index'
+  end
+
   private
     def user_albums
       current_user.albums

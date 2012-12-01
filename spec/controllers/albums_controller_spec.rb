@@ -82,7 +82,7 @@ describe AlbumsController do
 
   describe "POST create" do
     describe "with valid params" do
-      let(:valid_attributes) {FactoryGirl.attributes_for(:album)}
+      let(:valid_attributes) {attributes_for(:album)}
 
       it "creates a new Album" do
         expect {
@@ -116,4 +116,18 @@ describe AlbumsController do
     end
   end
 
+  describe "GET search" do
+    before do
+      Album.stub(:search).and_return([album])
+      get :search
+    end
+
+    it 'assigns albums as @albums' do
+      expect(assigns(:albums)).to eq([album])
+    end
+
+    it 'renders index' do
+      expect(response).to render_template("index")
+    end
+  end
 end

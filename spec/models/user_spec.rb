@@ -3,10 +3,10 @@ require 'spec_helper'
 describe User do
   describe '.encrypt' do
     let(:password) {'welcome1'}
-    let(:salt) {'salty string'}
-    let(:hashed_password) {'65e82b6f919141bdcc8a45180660bff9f55c6e13'}
 
     it 'should return hashed password' do
+      hashed_password = '65e82b6f919141bdcc8a45180660bff9f55c6e13'
+      salt = 'salty string'
       expect( User.encrypt(password,salt) ).to eq(hashed_password)
     end
 

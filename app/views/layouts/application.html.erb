@@ -22,7 +22,17 @@
             <span class="icon-bar"></span>
           </a>
         <% end %>
-        <a class="brand" href="#">Music manager</a>
+        <a class="brand" href="/">Music manager</a>
+
+        <div class="nav-collapse collapse">
+          <% if @current_user.present? %>
+            <%= form_tag 'search', {:class=>"navbar-form pull-left", :method=>'get', :name=>"albums_search"} do %>
+              <%= text_field_tag :q, nil, {:class => 'search-query', :placeholder=>"Search"} %>
+              <input type="submit" value="Search" class="btn">
+            <% end %>
+          <% end %>
+        </div>
+
         <div class="nav-collapse pull-right">
           <ul class="nav">
             <% if @current_user.present? %>

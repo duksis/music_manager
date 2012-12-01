@@ -25,4 +25,10 @@ describe "routing" do
       :action => 'destroy'
     )
   end
+  it "routes search to albums#search" do
+    expect(:get => "/search").to route_to(
+      :controller => 'albums',
+      :action => 'search'
+    )
+  end
 end

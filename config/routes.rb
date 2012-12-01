@@ -8,6 +8,8 @@ MusicManager::Application.routes.draw do
   post 'login' => 'sessions#create'
   get  'logout'=> 'sessions#destroy', :as => 'logout'
 
+  get  'search'=> 'albums#search',    :as => 'search'
+
   root :to => 'albums#index'
 
   # Sample of regular route:

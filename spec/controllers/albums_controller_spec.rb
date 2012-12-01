@@ -7,6 +7,9 @@ describe AlbumsController do
     User.stub(:find).and_return(user)
   end
 
+  let(:album) {stub_model(Album)}
+  let(:albums) {controller.current_user.albums}
+
   before { log_in }
 
   describe "GET new" do
@@ -18,26 +21,55 @@ describe AlbumsController do
 
   describe "GET index" do
     it "assign a list of albums as @albums" do
-      album = stub_model(Album)
       User.any_instance.stub(:albums).and_return([album])
       get :index
       expect(assigns(:albums)).to eq([album])
     end
   end
 
-  describe "GET show" do
-    it "assign a album as @album" do
-      album = stub_model(Album)
-      Album.should_receive(:find).with(album.id.to_s).and_return(album)
-
-      get :show, :id => album.id
-      expect(assigns(:album)).to be_a(Album)
+  context 'with album' do
+    before do
+      albums.should_receive(:find).with(album.to_param).and_return(album)
     end
+
+    describe "GET show" do
+      it "assign a album as @album" do
+        get :show, :id => album.to_param
+        expect(assigns(:album)).to be_a(Album)
+      end
+    end
+
+    describe "GET edit" do
+      it "assign a album as @album" do
+        get :edit, :id => album.to_param
+        expect(assigns(:album)).to be_a(Album)
+      end
+    end
+
+    describe "POST update" do
+      it "assign a album as @album" do
+        post :update, :id => album.to_param
+        expect(assigns(:album)).to be_a(Album)
+      end
+
+      it 'should redirect on sucess' do
+        Album.any_instance.stub(:valid?).and_return(true)
+        post :update, :id => album.to_param,:album => {}
+        expect(response).to redirect_to(albums_path)
+      end
+
+      it 'should render edit on failure' do
+        Album.any_instance.stub(:valid?).and_return(false)
+        post :update, :id => album.to_param,:album => {}
+        expect(response).to render_template("edit")
+      end
+    end
+
+
+
   end
 
   describe "POST create" do
-
-
     describe "with valid params" do
       let(:valid_attributes) {FactoryGirl.attributes_for(:album)}
 
@@ -58,15 +90,16 @@ describe AlbumsController do
       end
     end
     describe "with invalid params" do
-      it "assigns a newly created but unsaved album as @album" do
+      before do
         User.any_instance.stub(:save).and_return(false)
         post :create
+      end
+
+      it "assigns a newly created but unsaved album as @album" do
         expect(assigns(:album)).to be_a_new(Album)
       end
 
       it "re-renders the 'new' template" do
-        User.any_instance.stub(:save).and_return(false)
-        post :create
         expect(response).to render_template("new")
       end
     end

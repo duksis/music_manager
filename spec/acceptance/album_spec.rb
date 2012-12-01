@@ -64,10 +64,20 @@ feature "Albums" do
     end
   end
 
-  scenario 'Updating album'
+  scenario 'Updating album' do
     # Given I'm on the albums details page
+    user = log_in
+    album_details = FactoryGirl.attributes_for(:album)
+    album = user.albums.create(album_details)
+
+    visit album_path(album)
+
     # When I press "Edit"
+    click_link 'Edit'
+
     # Then I should be able to edit albums details
+    fill_in "Title", :with => "Another title"
+    click_button 'Save'
 
   scenario 'Removing album'
     # Given I'm on the albums details page

@@ -1,48 +1,54 @@
 <%= form_for @album, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
 
-  <div class="control-group">
+  <div class='control-group <%= "#{@album.errors.messages.has_key?(:title) ? 'error': ''}" %>'>
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :title, :class => 'text_field' %>
+      <span class='help-inline'><%= "#{@album.errors.messages[:title].first}" %></span>
     </div>
   </div>
 
-  <div class="control-group">
+  <div class='control-group <%= "#{@album.errors.messages.has_key?(:artist) ? 'error': ''}" %>'>
     <%= f.label :artist, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :artist, :class => 'text_field' %>
+      <span class='help-inline'><%= "#{@album.errors.messages[:artist].first}" %></span>
     </div>
   </div>
 
-  <div class="control-group">
+  <div class='control-group <%= "#{@album.errors.messages.has_key?(:genre) ? 'error': ''}" %>'>
     <%= f.label :genre, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :genre, :class => 'text_field' %>
+      <span class='help-inline'><%= "#{@album.errors.messages[:genre].first}" %></span>
     </div>
   </div>
 
-  <div class="control-group">
+  <div class='control-group <%= "#{@album.errors.messages.has_key?(:year) ? 'error': ''}" %>'>
     <%= f.label :year, :class => 'control-label' %>
     <div class="controls">
       <%= f.number_field :year, :class => 'number_field' %>
+      <span class='help-inline'><%= "#{@album.errors.messages[:year].first}" %></span>
     </div>
   </div>
 
-  <div class="control-group">
+  <div class='control-group <%= "#{@album.errors.messages.has_key?(:number_of_tracks) ? 'error': ''}" %>'>
     <%= f.label :number_of_tracks, :class => 'control-label' %>
     <div class="controls">
       <%= f.number_field :number_of_tracks, :class => 'number_field' %>
+      <span class='help-inline'><%= "#{@album.errors.messages[:number_of_tracks].first}" %></span>
     </div>
   </div>
 
-  <div class="control-group">
+  <div class='control-group <%= "#{@album.errors.messages.has_key?(:number_of_discs) ? 'error': ''}" %>'>
     <%= f.label :number_of_discs, :class => 'control-label' %>
     <div class="controls">
       <%= f.number_field :number_of_discs, :class => 'number_field' %>
+      <span class='help-inline'><%= "#{@album.errors.messages[:number_of_discs].first}" %></span>
     </div>
   </div>
 
-  <div class="control-group">
+  <div class='control-group <%= "#{@album.errors.messages.has_key?(:cover) ? 'error': ''}" %>'>
     <%= f.label :cover, :class => 'control-label' %>
     <div class="controls">
       <%= f.file_field :cover, :class=>"hide" %>
@@ -50,6 +56,7 @@
         <input class="span2" id="album_cover_input" type="text">
         <a onclick="attachFileTo('album_cover');", class="btn">Browse</a>
       </div>
+      <span class='help-inline'><%= "#{@album.errors.messages[:cover].first}" %></span>
     </div>
   </div>
 

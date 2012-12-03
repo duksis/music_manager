@@ -29,6 +29,18 @@ feature "Albums", %q{
     expect( page ).to have_content(album_details.fetch(:title))
   end
 
+  scenario "Notifying about missing attributes" do
+    # Given I'm on my new album page
+    log_in
+    visit new_album_path
+
+    # When I press 'Save'
+    click_on 'Save'
+
+    # Then I should see "can't be blank"
+    expect( page ).to have_content("can't be blank")
+  end
+
   scenario "Browsing albums" do
     # Given I have music albums
     user = log_in

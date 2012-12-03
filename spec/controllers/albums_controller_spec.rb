@@ -37,6 +37,10 @@ describe AlbumsController do
         get :show, :id => album.to_param
         expect(assigns(:album)).to be_a(Album)
       end
+      it "assign the cover_size as @cover_size" do
+        get :show, :id => album.to_param, :cover_size => 'small'
+        expect(assigns(:cover_size)).to eq('small')
+      end
     end
 
     describe "GET edit" do

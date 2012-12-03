@@ -20,6 +20,7 @@ class AlbumsController < ApplicationController
 
   def show
     @album = user_albums.find( params[:id] )
+    @cover_size = params[:cover_size] if params[:cover_size]
   end
 
   def edit

@@ -31,6 +31,18 @@ feature "AlbumCovers", %q{
     expect( page ).to have_selector('img')
   end
 
-  scenario 'Changing size'
+  scenario 'Changing size' do
+    # Given I'm on album details page
+    visit album_path(@album)
+
+    # And cover size is large
+    expect( page ).to have_css('.large_cover')
+
+    # When I press 'small'
+    click_on 'small'
+
+    # Then I should see a small cover
+    expect( page ).to have_css('.small_cover')
+  end
 
 end

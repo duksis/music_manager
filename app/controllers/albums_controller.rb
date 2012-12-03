@@ -1,16 +1,14 @@
 class AlbumsController < ApplicationController
   before_filter :login_required
+  before_filter :populate_instance_variable, :except => [:index, :search]
 
-  def new
-    @album = user_albums.new
-  end
+  attr_accessor :new, :show, :edit
 
   def index
-    @albums = user_albums
+    @albums = current_user.albums
   end
 
   def create
-    @album = user_albums.new(params[:album])
     if @album.save
       redirect_to albums_path
     else
@@ -18,18 +16,7 @@ class AlbumsController < ApplicationController
     end
   end
 
-  def show
-    @album = user_albums.find( params[:id] )
-    @cover_size = params[:cover_size] if params[:cover_size]
-  end
-
-  def edit
-    @album = user_albums.find( params[:id] )
-  end
-
   def update
-    @album = user_albums.find( params[:id] )
-
     if @album.update_attributes(params[:album])
       redirect_to albums_path, notice: 'Album saved!'
     else
@@ -38,7 +25,6 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    @album = user_albums.find( params[:id] )
     if @album.destroy
       redirect_to albums_path, notice: 'Album removed!'
     else
@@ -52,8 +38,13 @@ class AlbumsController < ApplicationController
   end
 
   private
-    def user_albums
-      current_user.albums
+    def populate_instance_variable
+      if params[:id].present?
+        @album = current_user.albums.find( params[:id] )
+        @cover_size = params[:cover_size] if params[:cover_size]
+      else
+        @album = current_user.albums.new(params[:album])
+      end
     end
 
 end

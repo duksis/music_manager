@@ -1,16 +1,14 @@
 require 'spec_helper'
 
 describe AlbumsController do
-  let(:log_in) do
+
+  let(:album) {stub_model(Album)}
+
+  before do
     user = stub_model(User)
     session[:user_id] = user.id
     User.stub(:find).and_return(user)
   end
-
-  let(:album) {stub_model(Album)}
-  let(:albums) {controller.current_user.albums}
-
-  before { log_in }
 
   describe "GET new" do
     it "assigns a new album as @album" do
@@ -28,6 +26,7 @@ describe AlbumsController do
   end
 
   context 'with album' do
+    let(:albums) {controller.current_user.albums}
     before do
       albums.should_receive(:find).with(album.to_param).and_return(album)
     end
@@ -51,57 +50,44 @@ describe AlbumsController do
     end
 
     describe "POST update" do
+      def valid_album? ret=true
+        Album.any_instance.stub(:valid?).and_return(ret)
+        post :update, :id => album.to_param
+        response
+      end
+
       it "assign a album as @album" do
         post :update, :id => album.to_param
         expect(assigns(:album)).to be_a(Album)
       end
 
-      it 'should redirect on sucess' do
-        Album.any_instance.stub(:valid?).and_return(true)
-        post :update, :id => album.to_param,:album => {}
-        expect(response).to redirect_to(albums_path)
-      end
+      it { expect( valid_album? ).to redirect_to(albums_path) }
+      it { expect( valid_album?(false) ).to render_template("edit") }
 
-      it 'should render edit on failure' do
-        Album.any_instance.stub(:valid?).and_return(false)
-        post :update, :id => album.to_param,:album => {}
-        expect(response).to render_template("edit")
-      end
     end
 
     describe "DELETE destroy" do
-      before { Album.any_instance.should_receive(:destroy).and_return(true) }
-
-      it "destroys the requested album" do
+      def destroy_album ret=true
+        Album.any_instance.should_receive(:destroy).and_return(ret)
         delete :destroy, :id => album.to_param
+        response
       end
 
-      it "redirects to the users list" do
-        delete :destroy, :id => album.to_param
-        response.should redirect_to(albums_url)
-      end
+      it { expect( destroy_album ).to redirect_to(albums_path) }
+      it { expect( destroy_album(false) ).to render_template('show') }
     end
 
   end
 
   describe "POST create" do
     describe "with valid params" do
-      let(:valid_attributes) {attributes_for(:album)}
+      let(:valid_post) { post :create, :album => attributes_for(:album); response }
 
-      it "creates a new Album" do
-        expect {
-          post :create, :album => valid_attributes
-        }.to change(Album, :count).by(1)
-      end
-
+      it { expect{ valid_post }.to change(Album, :count).by(1) }
+      it { expect( valid_post ).to redirect_to(albums_path) }
       it "assigns a newly created album as @album" do
-        post :create, :album => valid_attributes
+        valid_post
         expect(assigns(:album)).to be_a(Album)
-      end
-
-      it "redirects to the albums page" do
-        post :create, :album => valid_attributes
-        expect(response).to redirect_to(albums_path)
       end
     end
     describe "with invalid params" do
@@ -110,12 +96,9 @@ describe AlbumsController do
         post :create
       end
 
+      it { expect(response).to render_template("new") }
       it "assigns a newly created but unsaved album as @album" do
         expect(assigns(:album)).to be_a_new(Album)
-      end
-
-      it "re-renders the 'new' template" do
-        expect(response).to render_template("new")
       end
     end
   end
@@ -125,13 +108,9 @@ describe AlbumsController do
       Album.stub(:search).and_return([album])
       get :search
     end
-
+    it { expect(response).to render_template("index") }
     it 'assigns albums as @albums' do
       expect(assigns(:albums)).to eq([album])
-    end
-
-    it 'renders index' do
-      expect(response).to render_template("index")
     end
   end
 end

@@ -29,6 +29,7 @@ group :test, :development do
   gem 'sqlite3'
   gem 'rake'
   gem 'simplecov', :require => false
+  gem 'shoulda-matchers'
 end
 
 group :development do

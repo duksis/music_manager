@@ -10,14 +10,14 @@ describe SessionsController do
         user = create(:user)
 
         post :create, valid_attributes
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(root_path)
       end
     end
 
     describe "with invalid params" do
       it "re-renders the 'new' template" do
         post :create
-        expect(response).to render_template("new")
+        expect(response).to redirect_to(login_path)
       end
     end
   end

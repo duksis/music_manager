@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/acceptance_helper'
 
-feature "Users" do
-  # As a person I can create a user account, log in and out
+feature "Users", %q{
+    As an person
+    I can create a user account, log in and out
+  } do
 
   scenario "Creating user account" do
     # Given I'm on the application homepage

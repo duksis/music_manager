@@ -1,4 +1,4 @@
-<%= form_for @album, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @album, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
 
   <div class="control-group">
     <%= f.label :title, :class => 'control-label' %>
@@ -39,6 +39,17 @@
     <%= f.label :number_of_discs, :class => 'control-label' %>
     <div class="controls">
       <%= f.number_field :number_of_discs, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :cover, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :cover, :class=>"hide" %>
+      <div class="input-append">
+        <input class="span2" id="album_cover_input" type="text">
+        <a onclick="attachFileTo('album_cover');", class="btn">Browse</a>
+      </div>
     </div>
   </div>
 

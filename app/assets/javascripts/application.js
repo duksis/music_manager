@@ -14,3 +14,12 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+// Required for twitter bootstrap file input field beautification
+var attachFileTo = function(field_id) {
+  var file_input = $('input[id='+field_id+']');
+  file_input.click();
+  file_input.change(function() {
+    $('#'+field_id+'_input').val($(this).val());
+  });
+};

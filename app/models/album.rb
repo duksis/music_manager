@@ -1,7 +1,9 @@
 class Album < ActiveRecord::Base
-  attr_accessible :artist, :genre, :number_of_discs, :number_of_tracks, :title, :year
+  attr_accessible :artist, :genre, :number_of_discs, :number_of_tracks, :title, :year, :cover
 
   validates_presence_of :title
+
+  mount_uploader :cover, CoverUploader
 
   def self.search(query, user=nil)
     return unless query.present?

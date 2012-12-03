@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/acceptance_helper'
 
-feature "Albums" do
-# As a user, I can add, view, update and remove my albums
-# and as a user I can search my own albums.
+feature "Albums", %q{
+    As a user
+    I can add, view, update and remove my albums
+    And I can search my own albums.
+  } do
 
   scenario "Adding album" do
     # Given I'm on my homepage

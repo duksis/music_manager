@@ -1,7 +1,13 @@
 Ruby on Rails "Kata" - music manager
 ====================================
+[music-manager.herokuapp.com](http://music-manager.herokuapp.com)
 
 ---
+
+[![build status](https://secure.travis-ci.org/duksis/music_manager.png)](https://secure.travis-ci.org/duksis/music_manager)
+
+The task:
+---------
 
 * Build a ruby on rails application to manage your music album collection using test-driven development.
 
@@ -11,6 +17,6 @@ Ruby on Rails "Kata" - music manager
 
 * The implementation code should be so DRY, restful and resource-oriented and well-tested that a documentation is superfluous.
 
-* For testing we strongly recommend using rspec and either cucumber or steak/rspec request specs.
+* For testing strongly recommended using rspec and either cucumber or steak/rspec request specs.
 
 * Focus on writing tests (more important than the actual app). Scaffolding isn't allowed.

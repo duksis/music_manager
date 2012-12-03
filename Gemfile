@@ -28,6 +28,7 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'sqlite3'
   gem 'rake'
+  gem 'simplecov', :require => false
 end
 
 group :development do
